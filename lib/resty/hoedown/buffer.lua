@@ -1,9 +1,11 @@
-local lib      = require "resty.hoedown.library"
-local ffi      = require "ffi"
-local ffi_gc   = ffi.gc
-local ffi_str  = ffi.string
-local ffi_cdef = ffi.cdef
-local tonumber = tonumber
+local lib          = require "resty.hoedown.library"
+local ffi          = require "ffi"
+local ffi_gc       = ffi.gc
+local ffi_str      = ffi.string
+local ffi_cdef     = ffi.cdef
+local tonumber     = tonumber
+local tostring     = tostring
+local setmetatable = setmetatable
 
 ffi_cdef[[
 typedef void *(*hoedown_realloc_callback)(void *, size_t);
@@ -92,7 +94,6 @@ end
 function buffer:free()
     lib.hoedown_buffer_free(self.context)
 end
-
 function buffer:__len()
     return tonumber(self.context.size)
 end

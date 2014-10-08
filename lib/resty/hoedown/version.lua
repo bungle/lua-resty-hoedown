@@ -1,9 +1,10 @@
-local lib      = require "resty.hoedown.library"
-local ffi      = require "ffi"
-local ffi_new  = ffi.new
-local ffi_cdef = ffi.cdef
-local tonumber = tonumber
-local concat   = table.concat
+local lib          = require "resty.hoedown.library"
+local ffi          = require "ffi"
+local ffi_new      = ffi.new
+local ffi_cdef     = ffi.cdef
+local tonumber     = tonumber
+local concat       = table.concat
+local setmetatable = setmetatable
 
 ffi_cdef[[
 void hoedown_version(int *major, int *minor, int *revision);

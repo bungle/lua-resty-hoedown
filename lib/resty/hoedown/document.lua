@@ -1,11 +1,15 @@
-local buffer   = require "resty.hoedown.buffer"
-local lib      = require "resty.hoedown.library"
-local ffi      = require "ffi"
-local ffi_gc   = ffi.gc
-local ffi_cdef = ffi.cdef
-local bit      = require "bit"
-local bor      = bit.bor
-local type     = type
+local buffer       = require "resty.hoedown.buffer"
+local new_buf      = buffer.new
+local lib          = require "resty.hoedown.library"
+local ffi          = require "ffi"
+local ffi_gc       = ffi.gc
+local ffi_cdef     = ffi.cdef
+local bit          = require "bit"
+local bor          = bit.bor
+local type         = type
+local tostring     = tostring
+local ipairs       = ipairs
+local setmetatable = setmetatable
 
 ffi_cdef[[
 typedef enum hoedown_extensions {
@@ -109,7 +113,7 @@ local exts = {
 local document = { extensions = exts }
 document.__index = document
 
-function document.new(renderer, extensions, nesting)
+function document.new(renderer, extensions, max_nesting)
     local t = type(extensions)
     local e = 0
     if t == "number" then
@@ -119,26 +123,22 @@ function document.new(renderer, extensions, nesting)
             e = bor(exts[v] or 0, e)
         end
     end
-    print('extensions', e)
-    return setmetatable({ context = ffi_gc(lib.hoedown_document_new(renderer.context or renderer, e, nesting or 16), lib.hoedown_document_free) }, document)
+    return setmetatable({ context = ffi_gc(lib.hoedown_document_new(renderer.context or renderer, e, max_nesting or 16), lib.hoedown_document_free) }, document)
 end
-
 function document:render(data)
     local str = tostring(data)
     local len = #str
-    local buf = buffer.new(len);
+    local buf = new_buf(len);
     lib.hoedown_document_render(self.context, buf.context, str, len)
     return tostring(buf)
 end
-
 function document:render_inline(data)
     local str = tostring(data)
     local len = #str
-    local buf = buffer.new(len);
+    local buf = new_buf(len);
     lib.hoedown_document_render_inline(self.context, buf.context, str, len)
     return tostring(buf)
 end
-
 function document:free()
     lib.hoedown_document_free(self.context)
 end

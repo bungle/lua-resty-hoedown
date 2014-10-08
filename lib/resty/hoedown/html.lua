@@ -1,12 +1,17 @@
-local buffer   = require "resty.hoedown.buffer"
-local document = require "resty.hoedown.document"
-local lib      = require "resty.hoedown.library"
-local ffi      = require "ffi"
-local ffi_gc   = ffi.gc
-local ffi_cdef = ffi.cdef
-local bit      = require "bit"
-local bor      = bit.bor
-local type     = type
+local buffer       = require "resty.hoedown.buffer"
+local new_buf      = buffer.new
+local document     = require "resty.hoedown.document"
+local lib          = require "resty.hoedown.library"
+local ffi          = require "ffi"
+local ffi_gc       = ffi.gc
+local ffi_cdef     = ffi.cdef
+local bit          = require "bit"
+local bor          = bit.bor
+local type         = type
+local ipairs       = ipairs
+local tostring     = tostring
+local tonumber     = tonumber
+local setmetatable = setmetatable
 
 ffi_cdef[[
 typedef enum hoedown_html_flags {
@@ -78,15 +83,13 @@ function html.new(flags, nesting)
     end
     return setmetatable({ context = ffi_gc(lib.hoedown_html_renderer_new(f, nesting or 6), lib.hoedown_html_renderer_free) }, html)
 end
-
 function html.smartypants(data)
     local str = tostring(data)
     local len = #str
-    local buf = buffer.new(len);
+    local buf = new_buf(len);
     lib.hoedown_html_smartypants(buf.context, str, len);
     return tostring(buf)
 end
-
 function html.is_tag(data, tag)
     local str = tostring(data)
     local len = #str
