@@ -52,7 +52,7 @@ brothers.</p>
 
 ## Installation
 
-Just place files in [`resty directory`](https://github.com/bungle/lua-resty-hoedown/blob/master/lib/resty) somewhere in your `package.path`. If you are using OpenResty, the default location would be `/usr/local/openresty/lualib`.
+Just place [`resty directory`](https://github.com/bungle/lua-resty-hoedown/blob/master/lib/resty) somewhere in your `package.path`. If you are using OpenResty, the default location would be `/usr/local/openresty/lualib`.
 Please check though that you do not overwrite the existing resty-directory if one exists already.
 
 ### Compiling and Installing Hoedown C-library
