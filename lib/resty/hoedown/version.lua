@@ -11,8 +11,6 @@ void hoedown_version(int *major, int *minor, int *revision);
 
 local version = {}
 
-version.__index = version
-
 function version:__tostring()
     return concat({ self.major, self.minor, self.revision }, '.')
 end
