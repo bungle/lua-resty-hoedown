@@ -1,6 +1,6 @@
 # lua-resty-hoedown
 
-`lua-resty-hoedown` is a Markdown, SmartyPants, buffer, and HTML/URL escaping library implementing LuaJIT bindings to
+`lua-resty-hoedown` is a Markdown, SmartyPants, buffer, and HTML and href/url escaping library implementing LuaJIT bindings to
 [Hoedown](https://github.com/hoedown/hoedown).
 
 ## Hello World with lua-resty-hoedown
