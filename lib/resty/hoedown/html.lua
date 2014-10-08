@@ -4,6 +4,9 @@ local lib      = require "resty.hoedown.library"
 local ffi      = require "ffi"
 local ffi_gc   = ffi.gc
 local ffi_cdef = ffi.cdef
+local bit      = require "bit"
+local bor      = bit.bor
+local type     = type
 
 ffi_cdef[[
 typedef enum hoedown_html_flags {
@@ -36,29 +39,51 @@ hoedown_renderer* hoedown_html_toc_renderer_new(int nesting_level) __attribute__
 void              hoedown_html_renderer_free(hoedown_renderer *renderer);
 ]]
 
+local html_flags = {
+    skip_html = lib.HOEDOWN_HTML_SKIP_HTML,
+    escape    = lib.HOEDOWN_HTML_ESCAPE,
+    hard_wrap = lib.HOEDOWN_HTML_HARD_WRAP,
+    use_xhtml = lib.HOEDOWN_HTML_USE_XHTML
+}
+
+local html_tag = {
+    none      = lib.HOEDOWN_HTML_TAG_NONE,
+    open      = lib.HOEDOWN_HTML_TAG_OPEN,
+    close     = lib.HOEDOWN_HTML_TAG_CLOSE
+}
+
 local function free(self)
-    lib.hoedown_html_renderer_free(self.___)
+    lib.hoedown_html_renderer_free(self.context)
 end
 
 local toc = { free = free }
 toc.__index = toc
 
 function toc.new(nesting)
-    return setmetatable({ ___ = ffi_gc(lib.hoedown_html_toc_renderer_new(nesting or 6), lib.hoedown_html_renderer_free) }, toc)
+    return setmetatable({ context = ffi_gc(lib.hoedown_html_toc_renderer_new(nesting or 6), lib.hoedown_html_renderer_free) }, toc)
 end
 
-local html = { free = free, toc = toc }
+local html = { free = free, toc = toc, flags = html_flags, tag = html_tag }
 html.__index = html
 
 function html.new(flags, nesting)
-    return setmetatable({ ___ = ffi_gc(lib.hoedown_html_renderer_new(flags or 0, nesting or 6), lib.hoedown_html_renderer_free) }, html)
+    local t = type(flags)
+    local f = 0
+    if t == "number" then
+        f = flags
+    elseif t == "table" then
+        for _, v in ipairs(flags) do
+            f = bor(html_flags[v] or 0, f)
+        end
+    end
+    return setmetatable({ context = ffi_gc(lib.hoedown_html_renderer_new(f, nesting or 6), lib.hoedown_html_renderer_free) }, html)
 end
 
 function html.smartypants(data)
     local str = tostring(data)
     local len = #str
     local buf = buffer.new(len);
-    lib.hoedown_html_smartypants(buf.___, str, len);
+    lib.hoedown_html_smartypants(buf.context, str, len);
     return tostring(buf)
 end
 

@@ -3,6 +3,9 @@ local lib      = require "resty.hoedown.library"
 local ffi      = require "ffi"
 local ffi_gc   = ffi.gc
 local ffi_cdef = ffi.cdef
+local bit      = require "bit"
+local bor      = bit.bor
+local type     = type
 
 ffi_cdef[[
 typedef enum hoedown_extensions {
@@ -86,18 +89,45 @@ void              hoedown_document_render_inline(hoedown_document *doc, hoedown_
 void              hoedown_document_free(hoedown_document *doc);
 ]]
 
-local document = {}
+local exts = {
+    tables                = lib.HOEDOWN_EXT_TABLES,
+    fenced_code           = lib.HOEDOWN_EXT_FENCED_CODE,
+    footnotes             = lib.HOEDOWN_EXT_FOOTNOTES,
+    autolink              = lib.HOEDOWN_EXT_AUTOLINK,
+    strikethrough         = lib.HOEDOWN_EXT_STRIKETHROUGH,
+    underline             = lib.HOEDOWN_EXT_UNDERLINE,
+    highlight             = lib.HOEDOWN_EXT_HIGHLIGHT,
+    quote                 = lib.HOEDOWN_EXT_QUOTE,
+    superscript           = lib.HOEDOWN_EXT_SUPERSCRIPT,
+    math                  = lib.HOEDOWN_EXT_MATH,
+    no_intra_emphasis     = lib.HOEDOWN_EXT_NO_INTRA_EMPHASIS,
+    space_headers         = lib.HOEDOWN_EXT_SPACE_HEADERS,
+    math_explicit         = lib.HOEDOWN_EXT_MATH_EXPLICIT,
+    disable_indented_code = lib.HOEDOWN_EXT_DISABLE_INDENTED_CODE
+}
+
+local document = { extensions = exts }
 document.__index = document
 
 function document.new(renderer, extensions, nesting)
-    return setmetatable({ ___ = ffi_gc(lib.hoedown_document_new(renderer.___ or renderer, extensions or 0, nesting or 16), lib.hoedown_document_free) }, document)
+    local t = type(extensions)
+    local e = 0
+    if t == "number" then
+        e = flags
+    elseif t == "table" then
+        for _, v in ipairs(extensions) do
+            e = bor(exts[v] or 0, e)
+        end
+    end
+    print('extensions', e)
+    return setmetatable({ context = ffi_gc(lib.hoedown_document_new(renderer.context or renderer, e, nesting or 16), lib.hoedown_document_free) }, document)
 end
 
 function document:render(data)
     local str = tostring(data)
     local len = #str
     local buf = buffer.new(len);
-    lib.hoedown_document_render(self.___, buf.___, str, len)
+    lib.hoedown_document_render(self.context, buf.context, str, len)
     return tostring(buf)
 end
 
@@ -105,12 +135,12 @@ function document:render_inline(data)
     local str = tostring(data)
     local len = #str
     local buf = buffer.new(len);
-    lib.hoedown_document_render_inline(self.___, buf.___, str, len)
+    lib.hoedown_document_render_inline(self.context, buf.context, str, len)
     return tostring(buf)
 end
 
 function document:free()
-    lib.hoedown_document_free(self.___)
+    lib.hoedown_document_free(self.context)
 end
 
 return document

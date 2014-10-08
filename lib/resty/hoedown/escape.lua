@@ -14,14 +14,14 @@ function escape.href(source)
     local str = tostring(source)
     local len = #str
     local buf = buffer.new(len);
-    lib.hoedown_escape_href(buf.___, str, len);
+    lib.hoedown_escape_href(buf.context, str, len);
     return tostring(buf)
 end
 function escape.html(source, secure)
     local str = tostring(source)
     local len = #str
     local buf = buffer.new(len);
-    lib.hoedown_escape_html(buf.___, str, len, secure and 1 or 0);
+    lib.hoedown_escape_html(buf.context, str, len, secure and 1 or 0);
     return tostring(buf)
 end
 return setmetatable(escape, { __call = function(_, source, secure)

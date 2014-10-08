@@ -41,60 +41,60 @@ function buffer:__index(key)
     if     key == "data"  then
         return tostring(self)
     elseif key == "size"  then
-        return tonumber(self.___.size)
+        return tonumber(self.context.size)
     elseif key == "asize" then
-        return tonumber(self.___.asize)
+        return tonumber(self.context.asize)
     elseif key == "unit"  then
-        return tonumber(self.___.unit)
+        return tonumber(self.context.unit)
     else
         return rawget(buffer, key)
     end
 end
 function buffer.new(size)
-    return setmetatable({ ___ = ffi_gc(lib.hoedown_buffer_new(size or 64), lib.hoedown_buffer_free) }, buffer)
+    return setmetatable({ context = ffi_gc(lib.hoedown_buffer_new(size or 64), lib.hoedown_buffer_free) }, buffer)
 end
 function buffer:reset()
-    lib.hoedown_buffer_reset(self.___)
+    lib.hoedown_buffer_reset(self.context)
 end
 function buffer:grow(size)
-    lib.hoedown_buffer_grow(self.___, size)
+    lib.hoedown_buffer_grow(self.context, size)
 end
 function buffer:put(str)
-    lib.hoedown_buffer_put(self.___, str, #str)
+    lib.hoedown_buffer_put(self.context, str, #str)
 end
 function buffer:puts(str)
-    lib.hoedown_buffer_puts(self.___, str)
+    lib.hoedown_buffer_puts(self.context, str)
 end
 function buffer:set(str)
-    lib.hoedown_buffer_set(self.___, str, #str)
+    lib.hoedown_buffer_set(self.context, str, #str)
 end
 function buffer:sets(str)
-    lib.hoedown_buffer_sets(self.___, str)
+    lib.hoedown_buffer_sets(self.context, str)
 end
 function buffer:eq(str)
-    return tonumber(lib.hoedown_buffer_eq(self.___, str, #str)) == 1
+    return tonumber(lib.hoedown_buffer_eq(self.context, str, #str)) == 1
 end
 function buffer:eqs(str)
-    return tonumber(lib.hoedown_buffer_eqs(self.___, str)) == 1
+    return tonumber(lib.hoedown_buffer_eqs(self.context, str)) == 1
 end
 function buffer:prefix(prefix)
-    return tonumber(lib.hoedown_buffer_prefix(self.___, prefix))
+    return tonumber(lib.hoedown_buffer_prefix(self.context, prefix))
 end
 function buffer:slurp(size)
-    lib.hoedown_buffer_slurp(self.___, size)
+    lib.hoedown_buffer_slurp(self.context, size)
 end
 function buffer:cstr()
-    return lib.hoedown_buffer_cstr(self.___)
+    return lib.hoedown_buffer_cstr(self.context)
 end
 function buffer:printf(format, ...)
-    lib.hoedown_buffer_printf(self.___, format, ...)
+    lib.hoedown_buffer_printf(self.context, format, ...)
 end
 function buffer:free()
-    lib.hoedown_buffer_free(self.___)
+    lib.hoedown_buffer_free(self.context)
 end
 
 function buffer:__len()
-    return tonumber(self.___.size)
+    return tonumber(self.context.size)
 end
 function buffer.__eq(x, y)
     return tostring(x) == tostring(y)
@@ -103,7 +103,7 @@ function buffer.__concat(x, y)
     return tostring(x) .. tostring(y)
 end
 function buffer:__tostring()
-    return ffi_str(self.___.data, self.___.size)
+    return ffi_str(self.context.data, self.context.size)
 end
 
 return buffer
