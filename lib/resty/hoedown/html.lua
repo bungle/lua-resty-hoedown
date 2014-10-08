@@ -44,14 +44,14 @@ local toc = { free = free }
 toc.__index = toc
 
 function toc.new(nesting)
-    return setmetatable({ ___ = ffi_gc(lib.hoedown_html_toc_renderer_new(nesting or 16), lib.hoedown_html_renderer_free) }, toc)
+    return setmetatable({ ___ = ffi_gc(lib.hoedown_html_toc_renderer_new(nesting or 6), lib.hoedown_html_renderer_free) }, toc)
 end
 
 local html = { free = free, toc = toc }
 html.__index = html
 
 function html.new(flags, nesting)
-    return setmetatable({ ___ = ffi_gc(lib.hoedown_html_renderer_new(flags or 0xfff, nesting or 16), lib.hoedown_html_renderer_free) }, html)
+    return setmetatable({ ___ = ffi_gc(lib.hoedown_html_renderer_new(flags or 0, nesting or 6), lib.hoedown_html_renderer_free) }, html)
 end
 
 function html.smartypants(data)
