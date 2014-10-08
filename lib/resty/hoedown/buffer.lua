@@ -92,8 +92,12 @@ end
 function buffer:free()
     lib.hoedown_buffer_free(self.___)
 end
+
 function buffer:__len()
     return tonumber(self.___.size)
+end
+function buffer.__eq(x, y)
+    return tostring(x) == tostring(y)
 end
 function buffer.__concat(x, y)
     return tostring(x) .. tostring(y)
