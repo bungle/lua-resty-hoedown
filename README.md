@@ -1,6 +1,6 @@
 # lua-resty-hoedown
 
-LuaJIT FFI bindings to [Hoedown](https://github.com/hoedown/hoedown), a Standards compliant, fast, secure markdown processing library in C.
+LuaJIT FFI bindings to [Hoedown](https://github.com/hoedown/hoedown), a standards compliant, fast, secure markdown processing library in C.
 
 ## Hello World with lua-resty-hoedown
 
@@ -49,10 +49,39 @@ and furious anger those who would attempt to poison and destroy My
 brothers.</p>
 ```
 
+## Installation
+
+Just place files in [`resty directory`](https://github.com/bungle/lua-resty-hoedown/blob/master/lib/resty) somewhere in your `package.path`. If you are using OpenResty, the default location would be `/usr/local/openresty/lualib`.
+Please check though that you do not overwrite the existing resty-directory if one exists already.
+
+### Compiling and Installing Hoedown C-library
+
+These are just rudimentary notes. Better installation instructions will follow:
+
+1. First download Hoedown from here: https://github.com/hoedown/hoedown
+2. Run `make`
+3. Place `libhoedown.so` in Lua's `package.cpath` (or modify `resty/hoedown/library.lua` and point `ffi_load("libhoedown")` with full path to `libhoedown.so`.
+
+### Using LuaRocks or MoonRocks
+
+If you are using LuaRocks >= 2.2:
+
+```Shell
+$ luarocks install lua-resty-hoedown
+```
+
+If you are using LuaRocks < 2.2:
+
+```Shell
+$ luarocks install --server=http://rocks.moonscript.org moonrocks
+$ moonrocks install lua-resty-hoedown
+```
+
+MoonRocks repository for `lua-resty-hoedown` is located here: https://rocks.moonscript.org/modules/bungle/lua-resty-hoedown.
 
 ## License
 
-`lua-resty-libcjson` uses two clause BSD license.
+`lua-resty-hoedown` uses two clause BSD license.
 
 ```
 Copyright (c) 2014, Aapo Talvensaari
