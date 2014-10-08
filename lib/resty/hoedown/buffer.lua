@@ -1,4 +1,4 @@
-local hd       = require "resty.hoedown.library"
+local lib      = require "resty.hoedown.library"
 local ffi      = require "ffi"
 local ffi_gc   = ffi.gc
 local ffi_str  = ffi.string
@@ -51,46 +51,46 @@ function buffer:__index(key)
     end
 end
 function buffer.new(size)
-    return setmetatable({ ___ = ffi_gc(hd.hoedown_buffer_new(size or 64), hd.hoedown_buffer_free) }, buffer)
+    return setmetatable({ ___ = ffi_gc(lib.hoedown_buffer_new(size or 64), lib.hoedown_buffer_free) }, buffer)
 end
 function buffer:reset()
-    hd.hoedown_buffer_reset(self.___)
+    lib.hoedown_buffer_reset(self.___)
 end
 function buffer:grow(size)
-    hd.hoedown_buffer_grow(self.___, size)
+    lib.hoedown_buffer_grow(self.___, size)
 end
 function buffer:put(str)
-    hd.hoedown_buffer_put(self.___, str, #str)
+    lib.hoedown_buffer_put(self.___, str, #str)
 end
 function buffer:puts(str)
-    hd.hoedown_buffer_puts(self.___, str)
+    lib.hoedown_buffer_puts(self.___, str)
 end
 function buffer:set(str)
-    hd.hoedown_buffer_set(self.___, str, #str)
+    lib.hoedown_buffer_set(self.___, str, #str)
 end
 function buffer:sets(str)
-    hd.hoedown_buffer_sets(self.___, str)
+    lib.hoedown_buffer_sets(self.___, str)
 end
 function buffer:eq(str)
-    return tonumber(hd.hoedown_buffer_eq(self.___, str, #str)) == 1
+    return tonumber(lib.hoedown_buffer_eq(self.___, str, #str)) == 1
 end
 function buffer:eqs(str)
-    return tonumber(hd.hoedown_buffer_eqs(self.___, str)) == 1
+    return tonumber(lib.hoedown_buffer_eqs(self.___, str)) == 1
 end
 function buffer:prefix(prefix)
-    return tonumber(hd.hoedown_buffer_prefix(self.___, prefix))
+    return tonumber(lib.hoedown_buffer_prefix(self.___, prefix))
 end
 function buffer:slurp(size)
-    hd.hoedown_buffer_slurp(self.___, size)
+    lib.hoedown_buffer_slurp(self.___, size)
 end
 function buffer:cstr()
-    return hd.hoedown_buffer_cstr(self.___)
+    return lib.hoedown_buffer_cstr(self.___)
 end
 function buffer:printf(format, ...)
-    hd.hoedown_buffer_printf(self.___, format, ...)
+    lib.hoedown_buffer_printf(self.___, format, ...)
 end
 function buffer:free()
-    hd.hoedown_buffer_free(self.___)
+    lib.hoedown_buffer_free(self.___)
 end
 function buffer:__len()
     return tonumber(self.___.size)
