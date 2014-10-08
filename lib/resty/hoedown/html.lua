@@ -16,7 +16,7 @@ local setmetatable = setmetatable
 ffi_cdef[[
 typedef enum hoedown_html_flags {
 	HOEDOWN_HTML_SKIP_HTML = (1 << 0),
-	HOEDOWN_HTML_ESCAPE = (1 << 1),
+	HOEDOWN_HTML_ESCAPE    = (1 << 1),
 	HOEDOWN_HTML_HARD_WRAP = (1 << 2),
 	HOEDOWN_HTML_USE_XHTML = (1 << 3)
 } hoedown_html_flags;
@@ -81,7 +81,7 @@ function html.new(flags, nesting)
             f = bor(html_flags[v] or 0, f)
         end
     end
-    return setmetatable({ context = ffi_gc(lib.hoedown_html_renderer_new(f, nesting or 6), lib.hoedown_html_renderer_free) }, html)
+    return setmetatable({ context = ffi_gc(lib.hoedown_html_renderer_new(f, nesting or 0), lib.hoedown_html_renderer_free) }, html)
 end
 function html.smartypants(data)
     local str = tostring(data)
