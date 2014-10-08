@@ -1,6 +1,7 @@
 # lua-resty-hoedown
 
-LuaJIT FFI bindings to [Hoedown](https://github.com/hoedown/hoedown), a standards compliant, fast, secure markdown processing library in C.
+`lua-resty-hoedown` is a Markdown, SmartyPants, buffer, and HTML/URL escaping library implementing LuaJIT bindings to
+[Hoedown](https://github.com/hoedown/hoedown).
 
 ## Hello World with lua-resty-hoedown
 
@@ -78,6 +79,10 @@ $ moonrocks install lua-resty-hoedown
 ```
 
 MoonRocks repository for `lua-resty-hoedown` is located here: https://rocks.moonscript.org/modules/bungle/lua-resty-hoedown.
+
+## Lua API
+
+TBD
 
 ## License
 
