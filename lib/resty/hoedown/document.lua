@@ -120,7 +120,11 @@ function document.new(renderer, extensions, max_nesting)
         e = flags
     elseif t == "table" then
         for _, v in ipairs(extensions) do
-            e = bor(exts[v] or 0, e)
+            if type(v) == "number" then
+                e = bor(v, e)
+            else
+                e = bor(exts[v] or 0, e)
+            end
         end
     end
     return setmetatable({ context = ffi_gc(lib.hoedown_document_new(renderer.context or renderer, e, max_nesting or 16), lib.hoedown_document_free) }, document)

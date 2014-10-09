@@ -78,7 +78,11 @@ function html.new(flags, nesting)
         f = flags
     elseif t == "table" then
         for _, v in ipairs(flags) do
-            f = bor(html_flags[v] or 0, f)
+            if type(v) == "number" then
+                f = bor(v, f)
+            else
+                f = bor(html_flags[v] or 0, f)
+            end
         end
     end
     return setmetatable({ context = ffi_gc(lib.hoedown_html_renderer_new(f, nesting or 0), lib.hoedown_html_renderer_free) }, html)
