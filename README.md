@@ -1,6 +1,6 @@
 # lua-resty-hoedown
 
-`lua-resty-hoedown` is a Markdown, SmartyPants, buffer, and HTML/URL escaping library implementing LuaJIT bindings to
+`lua-resty-hoedown` is a Markdown, SmartyPants, buffer, and html and href/url escaping library implementing LuaJIT bindings to
 [Hoedown](https://github.com/hoedown/hoedown).
 
 ## Hello World with lua-resty-hoedown
@@ -52,7 +52,7 @@ brothers.</p>
 
 ## Installation
 
-Just place files in [`resty directory`](https://github.com/bungle/lua-resty-hoedown/blob/master/lib/resty) somewhere in your `package.path`. If you are using OpenResty, the default location would be `/usr/local/openresty/lualib`.
+Just place [`resty directory`](https://github.com/bungle/lua-resty-hoedown/blob/master/lib/resty) somewhere in your `package.path`. If you are using OpenResty, the default location would be `/usr/local/openresty/lualib`.
 Please check though that you do not overwrite the existing resty-directory if one exists already.
 
 ### Compiling and Installing Hoedown C-library
