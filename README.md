@@ -82,7 +82,126 @@ MoonRocks repository for `lua-resty-hoedown` is located here: https://rocks.moon
 
 ## Lua API
 
-TBD
+### Document Processing Extensions
+
+With extensions, you may extend how to document processing works.
+Here are the available extensions:
+
+```lua
+tables                = HOEDOWN_EXT_TABLES,
+fenced_code           = HOEDOWN_EXT_FENCED_CODE,
+footnotes             = HOEDOWN_EXT_FOOTNOTES,
+autolink              = HOEDOWN_EXT_AUTOLINK,
+strikethrough         = HOEDOWN_EXT_STRIKETHROUGH,
+underline             = HOEDOWN_EXT_UNDERLINE,
+highlight             = HOEDOWN_EXT_HIGHLIGHT,
+quote                 = HOEDOWN_EXT_QUOTE,
+superscript           = HOEDOWN_EXT_SUPERSCRIPT,
+math                  = HOEDOWN_EXT_MATH,
+no_intra_emphasis     = HOEDOWN_EXT_NO_INTRA_EMPHASIS,
+space_headers         = HOEDOWN_EXT_SPACE_HEADERS,
+math_explicit         = HOEDOWN_EXT_MATH_EXPLICIT,
+disable_indented_code = HOEDOWN_EXT_DISABLE_INDENTED_CODE
+```
+
+##### Example
+
+```lua
+local hoedown = require "resty.hoedown"
+print(hoedown.document.extensions.tables)
+local doc = require "resty.hoedown.document"
+local extensions = doc.extensions
+print(extensions.tables)
+```
+
+### HTML Rendering Flags
+
+With HTML rendering flags you can control the HTML rendering process.
+Hare are the available flags:
+
+```lua
+skip_html = HOEDOWN_HTML_SKIP_HTML,
+escape    = HOEDOWN_HTML_ESCAPE,
+hard_wrap = HOEDOWN_HTML_HARD_WRAP,
+use_xhtml = HOEDOWN_HTML_USE_XHTML
+```
+
+##### Example
+
+```lua
+local hoedown = require "resty.hoedown"
+print(hoedown.html.flags.skip_html)
+local html  = require "resty.hoedown.html"
+local flags = html.flags
+print(flags.use_xhtml)
+```
+
+### HTML Tag States
+
+These present values returned from `resty.hoedown.html.is_tag` function.
+The possible values are:
+
+```lua
+none  = HOEDOWN_HTML_TAG_NONE,
+open  = HOEDOWN_HTML_TAG_OPEN,
+close = HOEDOWN_HTML_TAG_CLOSE
+```
+
+##### Example
+
+```lua
+local hoedown = require "resty.hoedown"
+print(hoedown.html.tag.open)
+local html = require "resty.hoedown.html"
+local tag  = html.tag
+print(tag.open)
+```
+
+### resty.hoedown
+
+A helper library that you may `require` with a single statement.
+
+#### string hoedown(source, opts)
+
+Helper function to rendering. `source` is a `string` containing a source document.
+You can also pass in options with `opts` argument. Here are the different options
+that you may use (you can also skip passing options):
+
+```lua
+opts = {
+    renderer    = ("html" or "html.toc" or function or nil),
+    extensions  = (table or number or nil),
+    max_nesting = (number or nil),
+    flags       = (table or number or nil),
+    nesting     = (number or nil),
+    smartypants = (true or false or nil)
+}
+```
+
+##### Example
+
+```lua
+local hoedown = require "resty.hoedown"
+print(hoedown[[
+# Hello World
+
+Hi this is Markdown.
+]])
+
+local flags = hoedown.html.flags
+
+print(hoedown([[
+# Hello World
+
+Hi this is Markdown.
+]], {
+    rendered    = "html.toc",
+    nesting     = 1,
+    flags       = { flags.use_xhtml, "escape" },
+    extensions  = { "underline", "quote" },
+    smartypants = true
+}))
+```
 
 ## License
 
