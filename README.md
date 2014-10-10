@@ -205,23 +205,23 @@ Hi this is Markdown.
 
 #### table resty.hoedown.buffer
 
-This returns a `buffer` module.
+This returns a [`buffer`](#restyhoedownbuffer) module.
 
 #### table resty.hoedown.document
 
-This returns a `document` module.
+This returns a [`document`](#restyhoedowndocument) module.
 
 #### table resty.hoedown.html
 
-This returns an `html` module.
+This returns an [`html`](#restyhoedownhtml) module.
 
 #### table resty.hoedown.escape
 
-This returns an `escape` module.
+This returns an [`escape`](#restyhoedownescape) module.
 
 #### table resty.hoedown.version
 
-This returns a `version` module.
+This returns a [`version`](#restyhoedownversion) module.
 
 ### resty.hoedown.buffer
 
