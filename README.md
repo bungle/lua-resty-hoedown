@@ -225,25 +225,66 @@ This returns an [`escape`](#restyhoedownescape) module.
 
 This returns a [`version`](#restyhoedownversion) module.
 
-##### resty.hoedown.buffer
+### resty.hoedown.buffer
 
-TBD
+#### cdata buffer.context
+#### string buffer.data
+#### number buffer.size
+#### number buffer.asize
+#### number buffer.unit
+#### table buffer.new(size)
+#### buffer:reset()
+#### buffer:grow(size)
+#### buffer:put(str)
+#### buffer:puts(str)
+#### buffer:set(str)
+#### buffer:sets(str)
+#### boolean buffer:eq(str)
+#### boolean buffer:eqs(str)
+#### number buffer:prefix(prefix)
+#### buffer:slurp(size)
+#### cdata buffer:cstr()
+#### buffer:printf(format, ...)
+#### buffer:free()
+#### number buffer.__len()
+#### boolean buffer:__eq()
+#### string buffer:__concat(x, y)
+#### string buffer:__tostring()
 
 ### resty.hoedown.document
 
-TBD
+#### cdata document.context
+#### table document.extensions
+#### table document.new(renderer, extensions, max_nesting)
+#### string document:render(data)
+#### string document:render_inline(date)
+#### document:free()
 
 ### resty.hoedown.html
 
-TBD
+#### cdata html.context
+#### table html.flags
+#### table html.tag
+#### table html.toc
+#### string html.smartypants(data)
+#### number html.is_tag(data, tag)
+#### table html.new(flags, nesting)
+#### html:free()
+#### table html.toc.new(nesting)
+#### html.toc:free()
 
 ### resty.hoedown.escape
 
-TBD
+#### string escape(source, secure)
+#### string escape.href(source)
+#### string escape.html(source, secure)
 
 ### resty.hoedown.version
 
-TBD
+#### number version.major
+#### number version.minor
+#### number version.revision
+#### string version:__tostring()
 
 ## License
 
