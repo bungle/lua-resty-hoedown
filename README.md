@@ -265,11 +265,11 @@ This returns a [`version`](#restyhoedownversion) module.
 #### cdata html.context
 #### table html.flags
 #### table html.tag
-#### table html.toc
 #### string html.smartypants(data)
 #### number html.is_tag(data, tag)
 #### table html.new(flags, nesting)
 #### html:free()
+#### table html.toc
 #### table html.toc.new(nesting)
 #### html.toc:free()
 
