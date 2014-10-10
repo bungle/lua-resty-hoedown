@@ -82,6 +82,10 @@ MoonRocks repository for `lua-resty-hoedown` is located here: https://rocks.moon
 
 ## Lua API
 
+There are some functions called `free` on the API (to be complete implementation of Hoedown). You don't really need to
+call `:free()` as the library automatically handles freeing the external resources using normal LuaJIT garbage collector
+(the library registers the garbage collector handlers with `ffi.gc`).
+
 ### Document Processing Extensions
 
 With extensions, you may extend how to document processing works.
