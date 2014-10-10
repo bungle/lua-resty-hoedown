@@ -197,11 +197,51 @@ Hi this is Markdown.
 ]], {
     rendered    = "html.toc",
     nesting     = 1,
-    flags       = { flags.use_xhtml, "escape" },
+    flags       = { flags.use_xhtml, "escape", 1 },
     extensions  = { "underline", "quote" },
     smartypants = true
 }))
 ```
+
+#### table resty.hoedown.buffer
+
+This returns a `buffer` module.
+
+#### table resty.hoedown.document
+
+This returns a `document` module.
+
+#### table resty.hoedown.html
+
+This returns an `html` module.
+
+#### table resty.hoedown.escape
+
+This returns an `escape` module.
+
+#### table resty.hoedown.version
+
+This returns a `version` module.
+
+### resty.hoedown.buffer
+
+TBD
+
+### resty.hoedown.document
+
+TBD
+
+### resty.hoedown.html
+
+TBD
+
+### resty.hoedown.escape
+
+TBD
+
+### resty.hoedown.version
+
+TBD
 
 ## License
 
