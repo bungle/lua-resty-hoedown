@@ -203,27 +203,29 @@ Hi this is Markdown.
 }))
 ```
 
-#### table resty.hoedown.buffer
+#### Fields
+
+##### table resty.hoedown.buffer
 
 This returns a [`buffer`](#restyhoedownbuffer) module.
 
-#### table resty.hoedown.document
+##### table resty.hoedown.document
 
 This returns a [`document`](#restyhoedowndocument) module.
 
-#### table resty.hoedown.html
+##### table resty.hoedown.html
 
 This returns an [`html`](#restyhoedownhtml) module.
 
-#### table resty.hoedown.escape
+##### table resty.hoedown.escape
 
 This returns an [`escape`](#restyhoedownescape) module.
 
-#### table resty.hoedown.version
+##### table resty.hoedown.version
 
 This returns a [`version`](#restyhoedownversion) module.
 
-### resty.hoedown.buffer
+##### resty.hoedown.buffer
 
 TBD
 
