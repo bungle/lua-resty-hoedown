@@ -30,6 +30,7 @@ function hoedown:__call(source, opts)
 end
 
 return setmetatable({
+    buffer   = require "resty.hoedown.buffer",
     document = require "resty.hoedown.document",
     html     = require "resty.hoedown.html",
     escape   = require "resty.hoedown.escape",
