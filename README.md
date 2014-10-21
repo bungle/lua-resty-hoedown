@@ -61,7 +61,7 @@ These are just rudimentary notes. Better installation instructions will follow:
 
 1. First download Hoedown from here: https://github.com/hoedown/hoedown
 2. Run `make`
-3. Place `libhoedown.so` in Lua's `package.cpath` (or modify `resty/hoedown/library.lua` and point `ffi_load("libhoedown")` with full path to `libhoedown.so`.
+3. Place `libhoedown.so` somewhere in the default search path for dynamic libraries of your operating system (or modify `resty/hoedown/library.lua` and point `ffi_load("libhoedown")` with full path to `libhoedown.so`.
 
 ### Using LuaRocks or MoonRocks
 
