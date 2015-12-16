@@ -117,7 +117,7 @@ function document.new(renderer, extensions, max_nesting)
     local t = type(extensions)
     local e = 0
     if t == "number" then
-        e = flags
+        e = extensions
     elseif t == "table" then
         for _, v in ipairs(extensions) do
             if type(v) == "number" then

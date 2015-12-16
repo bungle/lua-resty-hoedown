@@ -1,6 +1,5 @@
 local buffer       = require "resty.hoedown.buffer"
 local new_buf      = buffer.new
-local document     = require "resty.hoedown.document"
 local lib          = require "resty.hoedown.library"
 local ffi          = require "ffi"
 local ffi_gc       = ffi.gc
